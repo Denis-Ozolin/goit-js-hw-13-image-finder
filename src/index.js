@@ -8,10 +8,10 @@ const refs = {
   imgGallery: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.load-more-btn'),
 };
+let step = 0;
 
 refs.searchInput.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
-
 
 function onSearch(event){
   event.preventDefault();
@@ -26,7 +26,10 @@ function onSearch(event){
 
 function onLoadMore(){
   imagesApiService.fetchImages()
-  .then(createImageCardMarkup);
+  .then(data => {
+    createImageCardMarkup(data);
+    onScrollDisplay();
+  });
 }
 
 function createImageCardMarkup(images){
@@ -37,3 +40,10 @@ function clearImageGallery(){
   refs.imgGallery.innerHTML = '';
 }
 
+function onScrollDisplay(){
+  step += 800;
+  window.scrollTo({
+    top: step,
+    behavior: 'smooth',
+  });
+}

@@ -21,7 +21,10 @@ function onSearch(event){
   imagesApiService.setQuery(query);
   imagesApiService.resetPage();
   imagesApiService.fetchImages()
-  .then(createImageCardMarkup);
+  .then(data => {
+    createImageCardMarkup(data);
+    addBtn();
+  });
 }
 
 function onLoadMore(){
@@ -36,12 +39,16 @@ function createImageCardMarkup(images){
   refs.imgGallery.insertAdjacentHTML('beforeend', imageCardTpL(images));
 }
 
+function addBtn(){
+  refs.loadMoreBtn.classList.add('is-hidden');
+}
+
 function clearImageGallery(){
   refs.imgGallery.innerHTML = '';
 }
 
 function onScrollDisplay(){
-  step += 800;
+  step += window.innerHeight;
   window.scrollTo({
     top: step,
     behavior: 'smooth',

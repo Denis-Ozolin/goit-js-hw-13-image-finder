@@ -14,7 +14,6 @@ fetchImages(){
     .then(response => response.json())
     .then(data => {
       this.incrementPage();
-      console.log(data.hits);
       return data.hits;
     })
   },

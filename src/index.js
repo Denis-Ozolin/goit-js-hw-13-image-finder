@@ -29,7 +29,6 @@ function onSearch(event){
 function onLoadMore(){
   imagesApiService.fetchImages()
   .then(data => {
-    // checkAmountImg();
     const scrollToY = refs.imgGallery.offsetTop + refs.imgGallery.clientHeight;
     createImageCardMarkup(data);
     onScrollDisplay(scrollToY);
@@ -55,20 +54,10 @@ function onScrollDisplay(step){
   });
 }
 
-// let counter = 1;
+function removeBtn(){
+  refs.loadMoreBtn.classList.remove('is-hidden');
+}
 
-// function checkAmountImg(){
-//   counter += 1;
-//   if(imagesApiService.totalHits < counter){
-//     removeBtn();
-//     counter = 0;
-//   }
-// }
-
-// function removeBtn(){
-//   refs.loadMoreBtn.classList.remove('is-hidden');
-// }
-
-// export default removeBtn;
+export default removeBtn;
 
 

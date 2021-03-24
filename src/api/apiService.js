@@ -1,13 +1,12 @@
 const BASE_URL = 'https://pixabay.com/api/';
 const KEY = '20731913-04720c2299aa0ca3b12520f7d';
 
-// import removeBtn from '../index';
+import removeBtn from '../index';
 
 export default {
   searchQuery: '',
   page: 1,
   perPage: 12,
-  totalHits: 3,
 
 fetchImages(){
   const url = `${BASE_URL}?image_type=photo&orientation=horizontal
@@ -17,9 +16,10 @@ fetchImages(){
     .then(response => response.json())
     .then(data => {
       this.incrementPage();
-      // if(this.totalHits < this.page){
-      //   removeBtn();
-      // };
+      if(data.hits.length < this.perPage){
+        removeBtn();
+      }
+
       return data.hits;
     })
   },

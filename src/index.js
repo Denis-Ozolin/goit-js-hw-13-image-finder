@@ -15,7 +15,8 @@ refs.loadMoreBtn.addEventListener('click', onLoadMore);
 function onSearch(event){
   event.preventDefault();
   clearImageGallery();
-  const query = event.currentTarget.elements.query.value;
+  const query = event.currentTarget.elements.query.value.trim();
+  if(!query) return;
 
   imagesApiService.setQuery(query);
   imagesApiService.resetPage();

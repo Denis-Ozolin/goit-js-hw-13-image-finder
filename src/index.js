@@ -8,7 +8,6 @@ const refs = {
   imgGallery: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.load-more-btn'),
 };
-let step = 0;
 
 refs.searchInput.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
@@ -30,8 +29,10 @@ function onSearch(event){
 function onLoadMore(){
   imagesApiService.fetchImages()
   .then(data => {
+    // checkAmountImg();
+    const scrollToY = refs.imgGallery.offsetTop + refs.imgGallery.clientHeight;
     createImageCardMarkup(data);
-    onScrollDisplay();
+    onScrollDisplay(scrollToY);
   });
 }
 
@@ -47,10 +48,27 @@ function clearImageGallery(){
   refs.imgGallery.innerHTML = '';
 }
 
-function onScrollDisplay(){
-  step += window.innerHeight;
+function onScrollDisplay(step){
   window.scrollTo({
     top: step,
     behavior: 'smooth',
   });
 }
+
+// let counter = 1;
+
+// function checkAmountImg(){
+//   counter += 1;
+//   if(imagesApiService.totalHits < counter){
+//     removeBtn();
+//     counter = 0;
+//   }
+// }
+
+// function removeBtn(){
+//   refs.loadMoreBtn.classList.remove('is-hidden');
+// }
+
+// export default removeBtn;
+
+
